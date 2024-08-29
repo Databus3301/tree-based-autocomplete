@@ -1,23 +1,17 @@
-use std::fmt::{Display};
 
 #[derive(Debug)]
-pub struct Tree<T: Default + PartialEq> {
+pub struct Tree<T: PartialEq> {
     pub root: Node<T>
 }
 
 #[derive(Debug)]
-pub struct Node<T: Default + PartialEq> {
-    pub value: T,
-    pub stem: bool,
-    pub children: Vec<Node<T>>
+pub struct Node<T:  PartialEq> {
+    value: T,
+    stem: bool,
+    children: Vec<Node<T>>
 }
 
-impl <T: Default + PartialEq> Tree<T> {
-    pub fn new() -> Tree<T> {
-        Tree {
-            root: Node::new(T::default())
-        }
-    }
+impl <T:  PartialEq> Tree<T> {
     pub fn new_with(val: T) -> Tree<T> {
         Tree {
             root: Node::new(val)
@@ -46,9 +40,9 @@ impl <T: Default + PartialEq> Tree<T> {
         t
     }
 
-    pub fn complete(tree: &mut Tree<char>, prefix: &str) -> Vec<String> {
+    pub fn complete_word(tree: &mut Tree<char>, prefix: &str) -> Vec<String> {
         let mut cur = &mut tree.root;
-        for c in prefix.chars() {
+        for c in prefix.to_ascii_lowercase().chars() {
             // if there is a word path to follow…
             if cur.has_child(c) {
                 // …follow the word path
@@ -79,9 +73,13 @@ impl <T: Default + PartialEq> Tree<T> {
 
         words
     }
+    pub fn complete_sentence(tree: &mut Tree<char>, sentence: &str) -> Vec<String> {
+        Tree::<char>::complete_word(tree, sentence.trim().split_whitespace().last().unwrap())
+    }
 }
 
-impl <T: Default + PartialEq> Node<T> {
+
+impl <T: PartialEq> Node<T> {
     pub fn new(val: T) -> Node<T> {
         Node {
             value: val,
@@ -94,18 +92,12 @@ impl <T: Default + PartialEq> Node<T> {
         self.children.push(n);
         self.children.last_mut().unwrap()
     }
-    pub fn add_childn(&mut self, node: Node<T>) {
-        self.children.push(node);
-    }
-
     pub fn set_stem(&mut self, b: bool) {
         self.stem = b;
     }
-
     pub fn has_child(&self, val:T) -> bool {
         self.children.iter().find(|&n| n.value == val).is_some()
     }
-
     pub fn get_child(&mut self, val: T) -> Option<&mut Node<T>> {
         self.children.iter_mut().find(|n| n.value == val)
     }

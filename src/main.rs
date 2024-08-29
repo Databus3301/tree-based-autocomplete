@@ -1,4 +1,6 @@
-use crate::tree::{Node, Tree};
+use std::cmp::min;
+use std::time::SystemTime;
+use crate::tree::Tree;
 
 mod tree;
 
@@ -7,12 +9,12 @@ fn main() {
     let words = contents.split("\n").map(|x| x.split_whitespace().nth(0).unwrap()).collect::<Vec<&str>>();
 
     // Build tree
-    let time = std::time::SystemTime::now();
+    let time = SystemTime::now();
     let mut t = Tree::<char>::build_from_dict(words);
-    println!("Took {}ms to construct the tree", std::time::SystemTime::duration_since(&std::time::SystemTime::now(), time).unwrap().as_millis());
+    println!("Took {}ms to construct the tree", SystemTime::duration_since(&SystemTime::now(), time).unwrap().as_millis());
 
-    let suggestions = Tree::<char>::complete(&mut t, "uns");
+    // Query suggestions
+    let suggestions = Tree::<char>::complete_sentence(&mut t, "hallo meine kosmon");
+    println!("{:#?}", &suggestions[0..min(5, suggestions.len())]);
 
-    println!("{:#?}", suggestions);
 }
-
