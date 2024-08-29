@@ -7,8 +7,12 @@ This frequency statistic is conserved in tree construction through the order of 
 <br>
 The suggestions, being constructed by node-children traversal, hence are automatically ranked by this statistic.
 <br><br>
-e.g common word like 'and', 'after', and 'at' are more likely to be suggested at the input 'a' then less common ones like aneurysm
+e.g common word like _'and'_, _'after'_, and _'at'_ are more likely to be suggested at the input _'a'_ then less common ones like _'aneurysm'_
 
+# Documentation
+The live interface is launched per default. <br>
+Simply start typing to see your suggestions.
+```backspace``` to delete characters and ```enter``` to stop
 
 
 # Motivation
