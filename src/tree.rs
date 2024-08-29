@@ -23,6 +23,28 @@ impl <T: Default + PartialEq> Tree<T> {
             root: Node::new(val)
         }
     }
+    pub fn build_from_dict(mut words: Vec<&str>) -> Tree<char> {
+        let mut t = Tree::new_with(' ');
+
+        // Build the tree
+        words.iter_mut().for_each(|&mut word| {
+            let mut cur = &mut t.root;
+            for (i, c) in word.chars().enumerate() {
+                // if there isn't a word path to follow…
+                if !cur.has_child(c) {
+                    // …create the next letter of the word path
+                    cur = cur.add_childv(c);
+                } else {
+                    // …follow the word path
+                    cur = cur.get_child(c).unwrap();
+                }
+            }
+            // and mark the end/stem of a word
+            cur.set_stem(true);
+        });
+
+        t
+    }
 }
 
 impl <T: Default + PartialEq> Node<T> {
@@ -55,4 +77,6 @@ impl <T: Default + PartialEq> Node<T> {
     }
 
 }
+
+
 
