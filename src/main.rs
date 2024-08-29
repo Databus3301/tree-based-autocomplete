@@ -3,11 +3,11 @@ use crate::tree::Node;
 mod tree;
 
 fn main() {
-
-    let contents = std::fs::read_to_string("./res/de-5.txt").unwrap();
+    let contents = std::fs::read_to_string("./res/de-100k.txt").unwrap();
     let mut words = contents.split("\n").map(|x| x.split_whitespace().nth(0).unwrap()).collect::<Vec<&str>>();
 
     let mut t = tree::Tree::new_with(' ');
+    let time = std::time::SystemTime::now();
 
     words.iter_mut().for_each(|&mut word| {
         let mut cur = &mut t.root;
@@ -25,6 +25,6 @@ fn main() {
         cur.set_stem(true);
     });
 
-
-    println!("{:#?}", t.root.children);
+    //println!("{:#?}", t.root.children);
+    println!("Took {} ms", std::time::SystemTime::duration_since(&std::time::SystemTime::now(), time).unwrap().as_millis());
 }
