@@ -29,7 +29,7 @@ impl <T: Default + PartialEq> Tree<T> {
         // Build the tree
         words.iter_mut().for_each(|&mut word| {
             let mut cur = &mut t.root;
-            for (i, c) in word.chars().enumerate() {
+            for c in word.chars() {
                 // if there isn't a word path to follow…
                 if !cur.has_child(c) {
                     // …create the next letter of the word path
@@ -44,6 +44,40 @@ impl <T: Default + PartialEq> Tree<T> {
         });
 
         t
+    }
+
+    pub fn complete(tree: &mut Tree<char>, prefix: &str) -> Vec<String> {
+        let mut cur = &mut tree.root;
+        for c in prefix.chars() {
+            // if there is a word path to follow…
+            if cur.has_child(c) {
+                // …follow the word path
+                cur = cur.get_child(c).unwrap();
+            } else {
+                // …don't suggest anything
+                return vec!();
+            }
+        }
+
+        // collect word ends
+        let mut words = vec!();
+        for child in cur.children.iter_mut() {
+            let mut suffix = String::new();
+
+            let mut tail = child;
+            while !tail.children.is_empty() {
+                suffix.push(tail.value);
+                if tail.stem {
+                    words.push(format!("{}{}", prefix, suffix));
+                }
+                tail = tail.children.first_mut().unwrap();
+            }
+            suffix.push(tail.value);
+
+            words.push(format!("{}{}", prefix, suffix));
+        }
+
+        words
     }
 }
 

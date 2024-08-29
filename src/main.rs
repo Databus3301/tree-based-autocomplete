@@ -8,10 +8,11 @@ fn main() {
 
     // Build tree
     let time = std::time::SystemTime::now();
-    let t = Tree::<char>::build_from_dict(words);
+    let mut t = Tree::<char>::build_from_dict(words);
     println!("Took {}ms to construct the tree", std::time::SystemTime::duration_since(&std::time::SystemTime::now(), time).unwrap().as_millis());
 
+    let suggestions = Tree::<char>::complete(&mut t, "uns");
 
-    //println!("{:#?}", t.root.children);
+    println!("{:#?}", suggestions);
 }
 
