@@ -11,7 +11,7 @@ e.g common word like _'and'_, _'after'_, and _'at'_ are more likely to be sugges
 
 # Documentation
 The live interface is launched per default. <br>
-Simply start typing to see your suggestions. <br>
+Simply start typing to see your suggestions. <br><br>
 ```backspace``` to delete characters and ```enter``` to stop
 
 
