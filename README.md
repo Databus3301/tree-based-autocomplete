@@ -17,4 +17,4 @@ Simply start typing to see your suggestions. <br><br>
 
 # Motivation
 Briefly having discussed the employability of such trees for this purpose in a recent CS lesson at school, 
-<br>this implementation serves as to further dive in to the concept while trying to better my rust skills on the way
+<br>this implementation serves as to further dive into the concept while trying to better my rust skills along the way
