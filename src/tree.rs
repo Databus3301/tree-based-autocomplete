@@ -74,7 +74,11 @@ impl <T:  PartialEq> Tree<T> {
         words
     }
     pub fn complete_sentence(tree: &mut Tree<char>, sentence: &str) -> Vec<String> {
-        Tree::<char>::complete_word(tree, sentence.trim().split_whitespace().last().unwrap())
+        if sentence.len() > 0 {
+            Tree::<char>::complete_word(tree, sentence.trim().split_whitespace().last().unwrap())
+        } else {
+            vec!()
+        }
     }
 }
 
