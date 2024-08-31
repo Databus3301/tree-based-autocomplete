@@ -12,7 +12,19 @@ e.g common words like _'and'_, _'after'_, and _'at'_ are more likely to be sugge
 # Documentation
 The live interface is launched per default. <br>
 Simply start typing to see your suggestions. <br><br>
+Controls:<br>
 ```backspace``` to delete characters and ```enter``` to stop
+
+<br>
+To change the dictionary edit this line in the main function 
+
+```rust
+ fn main() {
+    let contents = std::fs::read_to_string("./res/en-80k.txt").unwrap();
+    …
+```
+Dictionaries must be one word per line and ideally sorted by targeted recommendation order.
+
 
 
 # Motivation
