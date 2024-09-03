@@ -5,7 +5,7 @@ mod tree;
 mod input;
 
 fn main() {
-    let contents = std::fs::read_to_string("./res/en-80k.txt").unwrap();
+    let contents = std::fs::read_to_string("./res/de-5.txt").unwrap();
     let words = contents.split("\n").map(|x| x.split_whitespace().nth(0).unwrap()).collect::<Vec<&str>>();
 
     // Build tree
